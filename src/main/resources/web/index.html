@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CuTool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="tabs">
+            <button onclick="showTab('jsonFormatter')">JSON格式化</button>
+            <button onclick="showTab('timestamp')">时间戳工具</button>
+            <button onclick="showTab('textTools')">文本工具</button>
+            <button onclick="showTab('toolLinks')">工具导航</button>
+        </div>
+        
+        <div id="jsonFormatter" class="tab-content">
+            <textarea id="jsonInput" placeholder="请输入JSON文本"></textarea>
+            <button onclick="formatJson()">格式化</button>
+            <pre id="jsonOutput"></pre>
+        </div>
+
+        <div id="timestamp" class="tab-content" style="display:none">
+            <div class="tool-section">
+                <input type="text" id="timestampInput" placeholder="输入时间戳">
+                <button onclick="convertTimestamp()">转换</button>
+                <input type="text" id="dateOutput" readonly>
+                <button onclick="getCurrentTimestamp()">获取当前时间戳</button>
+            </div>
+        </div>
+
+        <div id="textTools" class="tab-content" style="display:none">
+            <div class="tool-section">
+                <textarea id="textInput" placeholder="输入文本"></textarea>
+                <div class="button-group">
+                    <button onclick="base64Encode()">Base64编码</button>
+                    <button onclick="base64Decode()">Base64解码</button>
+                    <button onclick="urlEncode()">URL编码</button>
+                    <button onclick="urlDecode()">URL解码</button>
+                    <button onclick="md5()">MD5</button>
+                </div>
+                <textarea id="textOutput" readonly></textarea>
+            </div>
+        </div>
+
+        <div id="toolLinks" class="tab-content" style="display:none">
+            <div class="links-section">
+                <ul>
+                    <li><a href="https://jsoneditoronline.org" target="_blank">JSON在线解析</a></li>
+                    <li><a href="https://tool.lu/timestamp" target="_blank">时间戳转换</a></li>
+                    <li><a href="https://tool.lu/base64" target="_blank">Base64工具</a></li>
+                    <li><a href="https://tool.lu/urlencode" target="_blank">URL编解码</a></li>
+                    <li><a href="https://tool.lu/md5" target="_blank">MD5加密</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
