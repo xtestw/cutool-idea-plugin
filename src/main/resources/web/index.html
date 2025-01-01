@@ -3,24 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <title>CuTool</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        .tabs {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #3e3e3e;
+            display: flex;
+            gap: 2px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #3e3e3e;
+            background: #252526;
+            color: #d4d4d4;
+            border-radius: 4px 4px 0 0;
+            border-bottom: none;
+            margin-bottom: -1px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button:hover {
+            background: #2d2d2d;
+            color: #fff;
+        }
+
+        .tab-button.active {
+            background: #1e1e1e;
+            border-bottom: 2px solid #0078d4;
+            color: #0078d4;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: #252526;
+            border: 1px solid #3e3e3e;
+            border-radius: 0 4px 4px 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            min-height: 200px;
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid #3e3e3e;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            resize: vertical;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        input[type="text"] {
+            min-height: auto;
+            height: 36px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #006cbd;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        pre {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 4px;
+            overflow: auto;
+            border: 1px solid #3e3e3e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .tool-section {
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            margin: 10px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .links-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links-section li {
+            margin-bottom: 12px;
+        }
+
+        .links-section a {
+            color: #0078d4;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 16px;
+            background: #1e1e1e;
+            border-radius: 4px;
+            transition: all 0.2s;
+            border: 1px solid #3e3e3e;
+            width: calc(100% - 34px);
+        }
+
+        .links-section a:hover {
+            background: #2d2d2d;
+            color: #fff;
+            transform: translateX(5px);
+            border-color: #0078d4;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3e3e3e;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 选中文本的样式 */
+        ::selection {
+            background: #0078d4;
+            color: #fff;
+        }
+
+        /* 输入框焦点样式 */
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 2px rgba(0,120,212,0.2);
+        }
+
+        /* 禁用状态样式 */
+        textarea[readonly], input[readonly] {
+            background: #2d2d2d;
+            cursor: not-allowed;
+        }
+
+        /* 错误状态样式 */
+        .error {
+            color: #f14c4c;
+            border-color: #f14c4c;
+            background: rgba(241,76,76,0.1);
+        }
+
+        /* 工具导航样式优化 */
+        .tool-category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            color: #0078d4;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3e3e3e;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-item {
+            background: #1e1e1e;
+            border: 1px solid #3e3e3e;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .tool-item a {
+            color: #d4d4d4;
+            text-decoration: none;
+            padding: 12px;
+            display: block;
+            width: auto;
+            border: none;
+            background: transparent;
+        }
+
+        .tool-item:hover {
+            border-color: #0078d4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .tool-item:hover a {
+            color: #0078d4;
+        }
+
+        .tool-search {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .tool-search input {
+            width: 100%;
+            padding: 10px 40px 10px 12px;
+            background: #1e1e1e;
+            border: 1px solid #3e3e3e;
+            border-radius: 4px;
+            color: #d4d4d4;
+            font-size: 14px;
+        }
+
+        .tool-search input:focus {
+            border-color: #0078d4;
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .compare-button {
+            background: #2d8cf0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .compare-button:hover {
+            background: #2b85e4;
+        }
+
+        .button-icon {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .button-group button {
+            flex: none;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <div class="tabs">
-            <button onclick="showTab('jsonFormatter')">JSON格式化</button>
-            <button onclick="showTab('timestamp')">时间戳工具</button>
-            <button onclick="showTab('textTools')">文本工具</button>
-            <button onclick="showTab('toolLinks')">工具导航</button>
+            <button class="tab-button active" data-tab="jsonFormatter">JSON格式化</button>
+            <button class="tab-button" data-tab="timestamp">时间戳工具</button>
+            <button class="tab-button" data-tab="textTools">文本工具</button>
+            <button class="tab-button" data-tab="toolLinks">工具导航</button>
         </div>
         
-        <div id="jsonFormatter" class="tab-content">
+        <div id="jsonFormatter" class="tab-content active">
             <textarea id="jsonInput" placeholder="请输入JSON文本"></textarea>
-            <button onclick="formatJson()">格式化</button>
+            <div class="button-group">
+                <button onclick="formatJson()">格式化</button>
+                <button onclick="window.open('https://cutool.online/tools/json/compare', '_blank')" class="compare-button">
+                    <span class="button-icon">⇄</span> JSON对比
+                </button>
+            </div>
             <pre id="jsonOutput"></pre>
         </div>
 
-        <div id="timestamp" class="tab-content" style="display:none">
+        <div id="timestamp" class="tab-content">
             <div class="tool-section">
                 <input type="text" id="timestampInput" placeholder="输入时间戳">
                 <button onclick="convertTimestamp()">转换</button>
@@ -29,7 +325,7 @@
             </div>
         </div>
 
-        <div id="textTools" class="tab-content" style="display:none">
+        <div id="textTools" class="tab-content">
             <div class="tool-section">
                 <textarea id="textInput" placeholder="输入文本"></textarea>
                 <div class="button-group">
@@ -43,18 +339,159 @@
             </div>
         </div>
 
-        <div id="toolLinks" class="tab-content" style="display:none">
+        <div id="toolLinks" class="tab-content">
+            <div class="tool-search">
+                <input type="text" id="toolSearch" placeholder="搜索工具..." oninput="searchTools()">
+                <span class="search-icon">🔍</span>
+            </div>
             <div class="links-section">
-                <ul>
-                    <li><a href="https://jsoneditoronline.org" target="_blank">JSON在线解析</a></li>
-                    <li><a href="https://tool.lu/timestamp" target="_blank">时间戳转换</a></li>
-                    <li><a href="https://tool.lu/base64" target="_blank">Base64工具</a></li>
-                    <li><a href="https://tool.lu/urlencode" target="_blank">URL编解码</a></li>
-                    <li><a href="https://tool.lu/md5" target="_blank">MD5加密</a></li>
-                </ul>
+                <div class="tool-category">
+                    <h3 class="category-title">常用工具</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/json-formatter" target="_blank">JSON格式化</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/timestamp" target="_blank">时间戳转换</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/code-formatter" target="_blank">代码格式化</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/text-compare" target="_blank">文本对比</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3 class="category-title">编码转换</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/base64-converter" target="_blank">Base64转换</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/url-converter" target="_blank">URL转换</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3 class="category-title">文本工具</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/text-counter" target="_blank">文本统计</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/text/process" target="_blank">文本处理</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/regex-matcher" target="_blank">正则表达式</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3 class="category-title">对比工具</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/text-compare" target="_blank">文本对比</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/json-compare" target="_blank">JSON对比</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3 class="category-title">导航工具</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item">
+                            <a href="https://cutool.online/ai-nav" target="_blank">AI导航</a>
+                        </div>
+                        <div class="tool-item">
+                            <a href="https://cutool.online/tools/image-nav" target="_blank">图片导航</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 为所有tab按钮添加点击事件
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    showTab(tabId);
+                });
+            });
+
+            // 默认显示第一个tab
+            showTab('jsonFormatter');
+        });
+
+        function showTab(tabId) {
+            // 移除所有tab的active类
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 添加active类到选中的tab
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function formatJson() {
+            try {
+                const input = document.getElementById('jsonInput').value;
+                const parsed = JSON.parse(input);
+                document.getElementById('jsonOutput').textContent = 
+                    JSON.stringify(parsed, null, 2);
+            } catch (e) {
+                document.getElementById('jsonOutput').textContent = 
+                    'Invalid JSON: ' + e.message;
+            }
+        }
+
+        function convertTimestamp() {
+            const timestamp = document.getElementById('timestampInput').value;
+            try {
+                const date = new Date(parseInt(timestamp));
+                document.getElementById('dateOutput').value = date.toLocaleString();
+            } catch (e) {
+                document.getElementById('dateOutput').value = '无效的时间戳';
+            }
+        }
+
+        function getCurrentTimestamp() {
+            document.getElementById('timestampInput').value = Date.now();
+            convertTimestamp();
+        }
+
+        function searchTools() {
+            const searchText = document.getElementById('toolSearch').value.toLowerCase();
+            const toolItems = document.querySelectorAll('.tool-item');
+            
+            toolItems.forEach(item => {
+                const toolName = item.querySelector('a').textContent.toLowerCase();
+                if (toolName.includes(searchText)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // 处理分类标题的显示/隐藏
+            document.querySelectorAll('.tool-category').forEach(category => {
+                const visibleTools = category.querySelectorAll('.tool-item[style="display: block"]').length;
+                const categoryTitle = category.querySelector('.category-title');
+                categoryTitle.style.display = visibleTools > 0 ? 'block' : 'none';
+            });
+        }
+    </script>
 </body>
 </html> 

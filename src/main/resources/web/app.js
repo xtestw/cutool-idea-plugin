@@ -1,11 +1,28 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 为所有tab按钮添加点击事件
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            showTab(tabId);
+        });
+    });
+
+    // 默认显示第一个tab
+    showTab('jsonFormatter');
+});
+
 function showTab(tabId) {
-    // 隐藏所有tab内容
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = 'none';
+    // 移除所有tab的active类
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
     });
     
-    // 显示选中的tab
-    document.getElementById(tabId).style.display = 'block';
+    // 添加active类到选中的tab
+    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+    document.getElementById(tabId).classList.add('active');
 }
 
 function formatJson() {
@@ -16,7 +33,7 @@ function formatJson() {
             JSON.stringify(parsed, null, 2);
     } catch (e) {
         document.getElementById('jsonOutput').textContent = 
-            'Invalid JSON: ' + e.getMessage();
+            'Invalid JSON: ' + e.message;
     }
 }
 
@@ -33,9 +50,4 @@ function convertTimestamp() {
 function getCurrentTimestamp() {
     document.getElementById('timestampInput').value = Date.now();
     convertTimestamp();
-}
-
-// 默认显示JSON格式化工具
-document.addEventListener('DOMContentLoaded', () => {
-    showTab('jsonFormatter');
-}); 
+} 

@@ -3,8 +3,14 @@ package com.github.yourname.cutool.window;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.jcef.JBCefApp;
 import com.intellij.ui.jcef.JBCefBrowser;
+import com.intellij.ui.jcef.JBCefClient;
+import org.cef.browser.CefBrowser;
+import org.cef.browser.CefFrame;
+import org.cef.handler.CefLifeSpanHandler;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Desktop;
+import java.net.URI;
 import java.net.URL;
 
 public class CuToolWindow {
@@ -19,6 +25,32 @@ public class CuToolWindow {
                 // 创建JCEF浏览器实例
                 browser = new JBCefBrowser();
                 content.add(browser.getComponent(), BorderLayout.CENTER);
+                
+                // 设置链接处理
+                JBCefClient client = browser.getJBCefClient();
+                client.addLifeSpanHandler(new CefLifeSpanHandler() {
+                    @Override
+                   public boolean onBeforePopup(
+                            CefBrowser browser, CefFrame frame, String targetUrl, String target_frame_name){
+                        openInExternalBrowser(targetUrl);
+                        return true; // 阻止在JCEF中打开新窗口
+                    }
+
+
+                    @Override
+                    public void onAfterCreated(CefBrowser browser) {}
+
+                    @Override
+                    public void onBeforeClose(CefBrowser browser) {}
+
+                    @Override
+                    public boolean doClose(CefBrowser browser) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onAfterParentChanged(CefBrowser browser) {}
+                }, browser.getCefBrowser());
                 
                 // 等待组件显示后再加载URL
                 SwingUtilities.invokeLater(() -> {
@@ -45,6 +77,15 @@ public class CuToolWindow {
             }
         } else {
             showError("当前环境不支持JCEF浏览器");
+        }
+    }
+
+    private void openInExternalBrowser(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("无法打开外部浏览器: " + e.getMessage());
         }
     }
 
