@@ -6,29 +6,31 @@
     <style>
         body {
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #1e1e1e;
             color: #d4d4d4;
+            font-size: 13px;
         }
 
         .tabs {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 1px solid #3e3e3e;
             display: flex;
-            gap: 2px;
+            gap: 1px;
         }
 
         .tab-button {
-            padding: 10px 20px;
+            padding: 8px 16px;
             cursor: pointer;
             border: 1px solid #3e3e3e;
             background: #252526;
             color: #d4d4d4;
-            border-radius: 4px 4px 0 0;
+            border-radius: 3px 3px 0 0;
             border-bottom: none;
             margin-bottom: -1px;
             transition: all 0.2s ease;
+            font-size: 14px;
         }
 
         .tab-button:hover {
@@ -44,10 +46,10 @@
 
         .tab-content {
             display: none;
-            padding: 20px;
+            padding: 15px;
             background: #252526;
             border: 1px solid #3e3e3e;
-            border-radius: 0 4px 4px 4px;
+            border-radius: 0 3px 3px 3px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
@@ -56,34 +58,41 @@
         }
 
         textarea, input[type="text"] {
-            width: 100%;
-            min-height: 200px;
-            margin-bottom: 10px;
-            padding: 12px;
+            width: calc(100% - 24px);
+            min-height: 180px;
+            margin-bottom: 8px;
+            padding: 10px;
             border: 1px solid #3e3e3e;
-            border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
             resize: vertical;
             background: #1e1e1e;
             color: #d4d4d4;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         input[type="text"] {
             min-height: auto;
-            height: 36px;
+            height: 28px;
+            width: 200px;
+            margin-right: 8px;
         }
 
         button {
-            padding: 8px 16px;
+            padding: 6px 12px;
+            height: 28px;
             background: #0078d4;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 3px;
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
+            transition: all 0.15s;
+            font-size: 12px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:hover {
@@ -96,26 +105,30 @@
         }
 
         pre {
+            margin: 0;
             background: #1e1e1e;
-            padding: 15px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 3px;
             overflow: auto;
             border: 1px solid #3e3e3e;
             color: #d4d4d4;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 14px;
-            line-height: 1.5;
+            font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            max-height: 400px;
         }
 
         .tool-section {
-            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
         }
 
         .button-group {
-            margin: 10px 0;
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
+            margin: 8px 0;
         }
 
         .links-section ul {
@@ -126,6 +139,9 @@
 
         .links-section li {
             margin-bottom: 12px;
+        }
+        .input-row {
+            width: 100%;
         }
 
         .links-section a {
@@ -149,17 +165,17 @@
 
         /* 滚动条样式 */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #1e1e1e;
+            background: transparent;
         }
 
         ::-webkit-scrollbar-thumb {
             background: #3e3e3e;
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -194,41 +210,38 @@
 
         /* 工具导航样式优化 */
         .tool-category {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .category-title {
             color: #0078d4;
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
             border-bottom: 1px solid #3e3e3e;
         }
 
         .tool-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .tool-item {
-            background: #1e1e1e;
-            border: 1px solid #3e3e3e;
-            border-radius: 4px;
+            /* background: #1e1e1e; */
+            /* border: 1px solid #3e3e3e; */
+            border-radius: 3px;
             transition: all 0.2s ease;
-            overflow: hidden;
         }
 
         .tool-item a {
             color: #d4d4d4;
             text-decoration: none;
-            padding: 12px;
+            padding: 8px 12px;
             display: block;
-            width: auto;
-            border: none;
-            background: transparent;
+            font-size: 12px;
         }
 
         .tool-item:hover {
@@ -294,15 +307,206 @@
         .button-group button {
             flex: none;
         }
+
+        /* 文本工具布局优化 */
+        #textTools .button-group {
+            flex-wrap: wrap;
+        }
+
+        /* 工具导航布局优化 */
+        #toolLinks {
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .section-title {
+            color: #0078d4;
+            font-size: 13px;
+            margin: 0 0 8px 0;
+            font-weight: normal;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="datetime-local"] {
+            min-height: auto;
+            height: 28px;
+            width: 200px;
+            margin-right: 8px;
+            padding: 0 8px;
+            border: 1px solid #3e3e3e;
+            border-radius: 3px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+        }
+
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.5;
+        }
+
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 0.8;
+        }
+
+        .tool-block {
+            background: #252526;
+            border: 1px solid #3e3e3e;
+            border-radius: 3px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tool-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-block .section-title {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3e3e3e;
+        }
+
+        .tool-block .input-group {
+            padding: 0;
+        }
+
+        /* 调整其他工具区域的样式 */
+        #jsonFormatter .tool-block {
+            margin-bottom: 15px;
+        }
+
+        #jsonFormatter textarea {
+            margin-bottom: 8px;
+        }
+
+        #textTools .tool-block {
+            margin-bottom: 15px;
+        }
+
+        #textTools textarea {
+            margin-bottom: 8px;
+        }
+
+        /* 工具导航样式调整 */
+        #toolLinks .tool-category {
+            background: #252526;
+            border: 1px solid #3e3e3e;
+            border-radius: 3px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        #toolLinks .tool-category:last-child {
+            margin-bottom: 0;
+        }
+
+        #toolLinks .category-title {
+            border-bottom: 1px solid #3e3e3e;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .time-select {
+            height: 28px;
+            padding: 0 8px;
+            border: 1px solid #3e3e3e;
+            border-radius: 3px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .time-select:focus {
+            border-color: #0078d4;
+            outline: none;
+        }
+
+        .quick-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quick-actions button {
+            font-size: 12px;
+            padding: 4px 8px;
+            height: 24px;
+            background: #2d2d2d;
+        }
+
+        .quick-actions button:hover {
+            background: #3d3d3d;
+        }
+
+        .timezone-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #252526;
+            border: 1px solid #3e3e3e;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .more-timezone {
+            color: #0078d4;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+        }
+
+        .more-timezone:hover {
+            text-decoration: underline;
+        }
+
+        .link-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        #textTools .input-row {
+            margin-bottom: 10px;
+        }
+
+        #textTools .button-group {
+            margin: 10px 0;
+        }
+
+        #textTools #separator {
+            width: 100px;
+        }
+
+        #textTools textarea {
+            min-height: 150px;
+        }
+
+        #textTools #textOutput {
+            background: #1e1e1e;
+            font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <div class="tabs">
-            <button class="tab-button active" data-tab="jsonFormatter">JSON格式化</button>
-            <button class="tab-button" data-tab="timestamp">时间戳工具</button>
-            <button class="tab-button" data-tab="textTools">文本工具</button>
-            <button class="tab-button" data-tab="toolLinks">工具导航</button>
+            <button class="tab-button active" data-tab="jsonFormatter">JSON</button>
+            <button class="tab-button" data-tab="timestamp">时间戳</button>
+            <button class="tab-button" data-tab="textTools">文本</button>
+            <button class="tab-button" data-tab="toolLinks">其他工具</button>
         </div>
         
         <div id="jsonFormatter" class="tab-content active">
@@ -317,33 +521,103 @@
         </div>
 
         <div id="timestamp" class="tab-content">
-            <div class="tool-section">
-                <input type="text" id="timestampInput" placeholder="输入时间戳">
-                <button onclick="convertTimestamp()">转换</button>
-                <input type="text" id="dateOutput" readonly>
-                <button onclick="getCurrentTimestamp()">获取当前时间戳</button>
+            <div class="timezone-info">
+                <span>当前时区: UTC<span id="currentTimezone"></span></span>
+                <a href="https://cutool.online/tools/time/timestamp" target="_blank" class="more-timezone">
+                    更多时区 <span class="link-icon">→</span>
+                </a>
+            </div>
+            
+            <div class="tool-block">
+                <div class="tool-section">
+                    <h4 class="section-title">时间戳转日期</h4>
+                    <div class="input-row">
+                        <div class="input-label">时间戳：</div>
+                        <div class="input-field">
+                            <input type="text" id="timestampInput" placeholder="输入时间戳">
+                            <select id="timestampUnit" class="time-select">
+                                <option value="ms">毫秒</option>
+                                <option value="s">秒</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-label">转换结果：</div>
+                        <div class="input-field">
+                            <input type="text" id="dateOutput" readonly>
+                            <button onclick="convertTimestamp()">转换</button>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button onclick="getCurrentTimestamp()">当前时间</button>
+                        <button onclick="getTodayStart()">今天0点</button>
+                        <button onclick="getTodayEnd()">今天24点</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-block">
+                <div class="tool-section">
+                    <h4 class="section-title">日期转时间戳</h4>
+                    <div class="input-row">
+                        <div class="input-label">日期时间：</div>
+                        <div class="input-field">
+                            <input type="datetime-local" id="dateInput" step="1">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-label">输出格式：</div>
+                        <div class="input-field">
+                            <select id="outputUnit" class="time-select">
+                                <option value="ms">毫秒</option>
+                                <option value="s">秒</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-label">转换结果：</div>
+                        <div class="input-field">
+                            <input type="text" id="timestampOutput" readonly>
+                            <button onclick="convertDate()">转换</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="textTools" class="tab-content">
-            <div class="tool-section">
-                <textarea id="textInput" placeholder="输入文本"></textarea>
-                <div class="button-group">
-                    <button onclick="base64Encode()">Base64编码</button>
-                    <button onclick="base64Decode()">Base64解码</button>
-                    <button onclick="urlEncode()">URL编码</button>
-                    <button onclick="urlDecode()">URL解码</button>
-                    <button onclick="md5()">MD5</button>
+            <div class="tool-block">
+                <div class="tool-section">
+                    <h4 class="section-title">文本处理</h4>
+                    <div class="input-row">
+                        <div class="input-label">输入文本：</div>
+                        <div class="input-field">
+                            <textarea id="textInput" placeholder="请输入要处理的文本"></textarea>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="multiLineToOne()">多行合并</button>
+                        <button onclick="oneLineToMulti()">按字符分行</button>
+                        <button onclick="removeDuplicateLines()">去除重复行</button>
+                        <button onclick="countText()">文本统计</button>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-label">分隔符：</div>
+                        <div class="input-field">
+                            <input type="text" id="separator" value="," placeholder="多行合并时的分隔符">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-label">处理结果：</div>
+                        <div class="input-field">
+                            <textarea id="textOutput" readonly></textarea>
+                        </div>
+                    </div>
                 </div>
-                <textarea id="textOutput" readonly></textarea>
             </div>
         </div>
 
         <div id="toolLinks" class="tab-content">
-            <div class="tool-search">
-                <input type="text" id="toolSearch" placeholder="搜索工具..." oninput="searchTools()">
-                <span class="search-icon">🔍</span>
-            </div>
             <div class="links-section">
                 <div class="tool-category">
                     <h3 class="category-title">常用工具</h3>
@@ -459,38 +733,151 @@
 
         function convertTimestamp() {
             const timestamp = document.getElementById('timestampInput').value;
+            const unit = document.getElementById('timestampUnit').value;
             try {
-                const date = new Date(parseInt(timestamp));
-                document.getElementById('dateOutput').value = date.toLocaleString();
+                let timestampMs = unit === 'ms' ? parseInt(timestamp) : parseInt(timestamp) * 1000;
+                const date = new Date(timestampMs);
+                document.getElementById('dateOutput').value = formatDate(date);
             } catch (e) {
                 document.getElementById('dateOutput').value = '无效的时间戳';
             }
         }
 
+        function formatDate(date) {
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}.${pad(date.getMilliseconds(), 3)}`;
+        }
+
+        function pad(num, length = 2) {
+            return String(num).padStart(length, '0');
+        }
+
         function getCurrentTimestamp() {
-            document.getElementById('timestampInput').value = Date.now();
+            const unit = document.getElementById('timestampUnit').value;
+            const now = Date.now();
+            document.getElementById('timestampInput').value = unit === 'ms' ? now : Math.floor(now / 1000);
             convertTimestamp();
         }
 
-        function searchTools() {
-            const searchText = document.getElementById('toolSearch').value.toLowerCase();
-            const toolItems = document.querySelectorAll('.tool-item');
-            
-            toolItems.forEach(item => {
-                const toolName = item.querySelector('a').textContent.toLowerCase();
-                if (toolName.includes(searchText)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        function getTodayStart() {
+            const unit = document.getElementById('timestampUnit').value;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const timestamp = today.getTime();
+            document.getElementById('timestampInput').value = unit === 'ms' ? timestamp : Math.floor(timestamp / 1000);
+            convertTimestamp();
+        }
 
-            // 处理分类标题的显示/隐藏
-            document.querySelectorAll('.tool-category').forEach(category => {
-                const visibleTools = category.querySelectorAll('.tool-item[style="display: block"]').length;
-                const categoryTitle = category.querySelector('.category-title');
-                categoryTitle.style.display = visibleTools > 0 ? 'block' : 'none';
-            });
+        function getTodayEnd() {
+            const unit = document.getElementById('timestampUnit').value;
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            const timestamp = today.getTime();
+            document.getElementById('timestampInput').value = unit === 'ms' ? timestamp : Math.floor(timestamp / 1000);
+            convertTimestamp();
+        }
+
+        function convertDate() {
+            try {
+                const dateInput = document.getElementById('dateInput').value;
+                const outputUnit = document.getElementById('outputUnit').value;
+                
+                if (dateInput) {
+                    let timestamp = new Date(dateInput).getTime();
+                    
+                    // 根据选择的输出单位转换
+                    if (outputUnit === 's') {
+                        timestamp = Math.floor(timestamp / 1000);
+                    }
+                    
+                    document.getElementById('timestampOutput').value = timestamp;
+                } else {
+                    document.getElementById('timestampOutput').value = '请选择日期时间';
+                }
+            } catch (e) {
+                document.getElementById('timestampOutput').value = '转换失败';
+            }
+        }
+
+        // 页面加载时设置默认当前时间
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const defaultDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+            document.getElementById('dateInput').value = defaultDateTime;
+        });
+
+        // 在页面加载时显示当前时区
+        document.addEventListener('DOMContentLoaded', () => {
+            const offset = -new Date().getTimezoneOffset() / 60;
+            const sign = offset >= 0 ? '+' : '';
+            document.getElementById('currentTimezone').textContent = `${sign}${offset}`;
+        });
+
+        // 多行合并为一行
+        function multiLineToOne() {
+            const input = document.getElementById('textInput').value;
+            const separator = document.getElementById('separator').value;
+            const lines = input.split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+            document.getElementById('textOutput').value = lines.join(separator);
+        }
+
+        // 一行文本按分隔符转多行
+        function oneLineToMulti() {
+            const input = document.getElementById('textInput').value;
+            const separator = document.getElementById('separator').value;
+            let chars;
+            if (separator === '') {
+                // 如果分隔符为空，则按单个字符分割
+                chars = input.split('');
+            } else {
+                chars = input.split(separator)
+                    .map(char => char.trim())
+                    .filter(char => char.length > 0);
+            }
+            document.getElementById('textOutput').value = chars.join('\n');
+        }
+
+        // 去除重复行
+        function removeDuplicateLines() {
+            const input = document.getElementById('textInput').value;
+            const lines = input.split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+            const uniqueLines = [...new Set(lines)];
+            document.getElementById('textOutput').value = uniqueLines.join('\n');
+        }
+
+        // 文本统计
+        function countText() {
+            const input = document.getElementById('textInput').value;
+            const chars = input.length;
+            const lines = input.split('\n').filter(line => line.length > 0).length;
+            const words = input.trim().split(/\s+/).filter(word => word.length > 0).length;
+            const chinese = (input.match(/[\u4e00-\u9fa5]/g) || []).length;
+            const numbers = (input.match(/\d/g) || []).length;
+            const letters = (input.match(/[a-zA-Z]/g) || []).length;
+            const spaces = (input.match(/\s/g) || []).length;
+            const symbols = chars - chinese - numbers - letters - spaces;
+
+            const stats = [
+                `总字符数：${chars}`,
+                `总行数：${lines}`,
+                `单词数：${words}`,
+                `中文字符：${chinese}`,
+                `数字：${numbers}`,
+                `字母：${letters}`,
+                `空格：${spaces}`,
+                `符号：${symbols}`
+            ];
+
+            document.getElementById('textOutput').value = stats.join('\n');
         }
     </script>
 </body>
