@@ -3,7 +3,17 @@
     <id>com.github.xtestw.cutoolideaplugin</id>
     <name>CuTool</name>
     <vendor>xtestw</vendor>
-    <description>开发者常用工具集合</description>
+    <description><![CDATA[
+        A comprehensive collection of development tools integrated into your IDE. Features include:
+        
+        - JSON formatting and validation
+        - Timestamp conversion with millisecond precision
+        - Text processing tools (merge lines, split text, remove duplicates)
+        - Text statistics and analysis
+        - Quick access to online development tools
+        
+        This plugin helps developers perform common tasks without leaving their IDE, improving development efficiency.
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
